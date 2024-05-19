@@ -1,0 +1,157 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Course_work.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:Course_work.Views"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="450"
+        x:Class="Course_work.Views.MainWindow"
+		x:DataType="vm:MainViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Course_work">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainViewModel/>
+	</Design.DataContext>
+
+	<TabControl Margin="5">
+		<TabItem Header="Products">
+			<Grid Margin="0,20,20,0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="150"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<!-- Button panel -->
+				<StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
+					<Button x:Name="bAddProduct" Command="{Binding AddProductCommand}" Content="Add Product" Height="28" Width="130" HorizontalContentAlignment="Center" Background="#007ACC" Foreground="White" FontSize="16" Padding="5" Margin="0,5,0,0" BorderThickness="0" CornerRadius="5"/>
+					<Button x:Name="bEditProduct" Command="{Binding EditProductCommand}" Content="Edit Product" Height="28" Width="130" HorizontalContentAlignment="Center" Background="#FFA500" Foreground="White" FontSize="16" Padding="5" Margin="0,10,0,0" BorderThickness="0" CornerRadius="5"/>
+					<Button x:Name="bDeleteProduct" Command="{Binding DeleteProductCommand}" Content="Delete Product" Height="28" Width="130" HorizontalContentAlignment="Center" Background="#DC143C" Foreground="White" FontSize="16" Padding="5" Margin="0,10,0,0" BorderThickness="0" CornerRadius="5"/>
+				</StackPanel>
+
+				<!-- Products table -->
+				<DataGrid Grid.Row="0" Grid.Column="1" AutoGenerateColumns="True" VerticalAlignment="Stretch" SelectedItem="{Binding SelectItemp}" ItemsSource="{Binding FilteredProducts}" Margin="5"/>
+
+				<!-- Search panel -->
+				<StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="5">
+					<TextBox Width="150" Margin="0,0,10,0" Watermark="Product Name" Text="{Binding SearchProductName}" />
+					<TextBox Width="150" Margin="0,0,10,0" Watermark="Category" Text="{Binding SearchProductCategory}" />
+					<TextBox Width="100" Margin="0,0,10,0" Watermark="Min Price" Text="{Binding SearchMinPrice}" />
+					<TextBox Width="100" Margin="0,0,10,0" Watermark="Max Price" Text="{Binding SearchMaxPrice}" />
+					<Button Content="Search" Command="{Binding SearchProductCommand}" Background="#007ACC" Foreground="White" Padding="5" BorderThickness="0" CornerRadius="5" Margin="0,0,10,0"/>
+					<Button Content="Clear" Command="{Binding ClearDataCommand}" Background="#007ACC" Foreground="White" Padding="5" BorderThickness="0" CornerRadius="5"/>
+				</StackPanel>
+			</Grid>
+		</TabItem>
+
+		<TabItem Header="Suppliers">
+			<Grid Margin="0,20,20,0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="150"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<!-- Button panel -->
+				<StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
+					<!-- Buttons for Suppliers -->
+					<Button Content="Add Supplier" Command="{Binding AddSupplierCommand}" Height="28" Width="130" HorizontalContentAlignment="Center" Background="#007ACC" Foreground="White" FontSize="16" Padding="5" Margin="0,5,0,0" BorderThickness="0" CornerRadius="5"/>
+					<Button Content="Edit Supplier" Command="{Binding EditSupplierCommand}" Height="28" Width="130" HorizontalContentAlignment="Center" Background="#FFA500" Foreground="White" FontSize="16" Padding="5" Margin="0,10,0,0" BorderThickness="0" CornerRadius="5"/>
+					<Button Content="Delete Supplier" Command="{Binding DeleteSupplierCommand}" Height="28" Width="130" HorizontalContentAlignment="Center" Background="#DC143C" Foreground="White" FontSize="16" Padding="5" Margin="0,10,0,0" BorderThickness="0" CornerRadius="5"/>
+				</StackPanel>
+
+				<!-- Suppliers data grid -->
+				<DataGrid Grid.Row="0" Grid.Column="1" AutoGenerateColumns="True" VerticalAlignment="Stretch" SelectedItem="{Binding SelectedSupplier}" ItemsSource="{Binding FilteredSuppliers}" Margin="5"/>
+
+				<!-- Search panel -->
+				<StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="5">
+					<!-- Text boxes for search criteria -->
+					<TextBox Width="150" Margin="0,0,10,0" Watermark="Supplier Name" Text="{Binding SearchSupplierName}" />
+					<TextBox Width="150" Margin="0,0,10,0" Watermark="Contact Info" Text="{Binding SearchSupplierContact}" />
+					<TextBox Width="150" Margin="0,0,10,0" Watermark="Address" Text="{Binding SearchSupplierAddress}" />
+					<!-- Search and Clear buttons -->
+					<Button Content="Search" Command="{Binding SearchSupplierCommand}" Background="#007ACC" Foreground="White" Padding="5" BorderThickness="0" CornerRadius="5" Margin="0,0,10,0"/>
+					<Button Content="Clear" Command="{Binding ClearSupplierCommand}" Background="#007ACC" Foreground="White" Padding="5" BorderThickness="0" CornerRadius="5"/>
+				</StackPanel>
+			</Grid>
+		</TabItem>
+
+		<TabItem Header="Supply">
+			<Grid Margin="0,20,20,0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="150"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<!-- Button panel -->
+				<StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
+					<!-- Buttons for Supply -->
+					<Button Content="Add Supply" Command="{Binding AddSupplyCommand}" Height="28" Width="130" HorizontalContentAlignment="Center" Background="#007ACC" Foreground="White" FontSize="16" Padding="5" Margin="0,5,0,0" BorderThickness="0" CornerRadius="5"/>
+					<Button Content="Edit Supply" Command="{Binding EditSupplyCommand}" Height="28" Width="130" HorizontalContentAlignment="Center" Background="#FFA500" Foreground="White" FontSize="16" Padding="5" Margin="0,10,0,0" BorderThickness="0" CornerRadius="5"/>
+					<Button Content="Delete Supply" Command="{Binding DeleteSupplyCommand}" Height="28" Width="130" HorizontalContentAlignment="Center" Background="#DC143C" Foreground="White" FontSize="16" Padding="5" Margin="0,10,0,0" BorderThickness="0" CornerRadius="5"/>
+				</StackPanel>
+
+				<!-- Supply data grid -->
+				<DataGrid Grid.Row="0" Grid.Column="1" AutoGenerateColumns="True" VerticalAlignment="Stretch" SelectedItem="{Binding SelectedSupply}" ItemsSource="{Binding FilteredSupplies}" Margin="5"/>
+
+				<!-- Search panel -->
+				<StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="5">
+					<!-- Text boxes for search criteria -->
+					<TextBox Width="150" Margin="0,0,10,0" Watermark="Product Name" Text="{Binding SearchSupplyProductName}" />
+					<TextBox Width="150" Margin="0,0,10,0" Watermark="Supplier Name" Text="{Binding SearchSupplySupplierName}" />
+					<TextBox Width="150" Margin="0,0,10,0" Watermark="Supply Date" Text="{Binding SearchSupplyDate}" />
+					<!-- Search and Clear buttons -->
+					<Button Content="Search" Command="{Binding SearchSupplyCommand}" Background="#007ACC" Foreground="White" Padding="5" BorderThickness="0" CornerRadius="5" Margin="0,0,10,0"/>
+					<Button Content="Clear" Command="{Binding ClearSupplyCommand}" Background="#007ACC" Foreground="White" Padding="5" BorderThickness="0" CornerRadius="5"/>
+				</StackPanel>
+			</Grid>
+		</TabItem>
+
+
+		<TabItem Header="Log">
+			<Grid Margin="0,20,20,0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<!-- Log table -->
+				<DataGrid Grid.Row="0" Grid.Column="0" AutoGenerateColumns="True" VerticalAlignment="Stretch" ItemsSource="{Binding TheLog}" Margin="5"/>
+
+				<!-- Search panel -->
+				<StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="5">
+					<TextBox Width="150" Margin="0,0,10,0" Watermark="Action" Text="{Binding SearchLogAction}" />
+
+					<StackPanel Orientation="Vertical" Margin="0,0,10,0">
+						<TextBlock Text="Start Date" Margin="0,0,0,5"/>
+						<DatePicker Width="150" SelectedDate="{Binding SearchLogStartDate}" />
+					</StackPanel>
+
+					<StackPanel Orientation="Vertical" Margin="0,0,10,0">
+						<TextBlock Text="End Date" Margin="0,0,0,5"/>
+						<DatePicker Width="150" SelectedDate="{Binding SearchLogEndDate}" />
+					</StackPanel>
+
+					<Button Content="Search" Command="{Binding SearchLogCommand}" Background="#007ACC" Foreground="White" Padding="5" BorderThickness="0" CornerRadius="5" Margin="0,0,10,0"/>
+					<Button Content="Clear" Command="{Binding ClearLogDataCommand}" Background="#007ACC" Foreground="White" Padding="5" BorderThickness="0" CornerRadius="5"/>
+				</StackPanel>
+	</Grid>
+	</TabItem>
+	</TabControl>
+
+</Window>
